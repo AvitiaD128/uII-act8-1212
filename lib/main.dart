@@ -3,40 +3,80 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  // This widget is the root of your application.
+  const MyApp({Key? key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      // Application name
-      title: 'Flutter Hello World',
-      // Application theme data, you can set the colors for the application as
-      // you want
-      theme: ThemeData(
-        // useMaterial3: false,
-        primarySwatch: Colors.blue,
-      ),
-      // A widget which will be started on application startup
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'CERESO128',
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
-  final String title;
-  const MyHomePage({super.key, required this.title});  
+  const MyHomePage({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // The title text which will be shown on the action bar
-        title: Text(title),
+        title: Text('CERESO128'),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Text('Presos Cereso128'),
+              decoration: BoxDecoration(
+                color: Color(0xfff38721),
+              ),
+            ),
+            buildListTile(context, 'Chapo Guzman', 'assets/image1.jpg'),
+            buildListTile(context, 'Amado Carrillo', 'assets/image2.jpg'),
+            buildListTile(context, 'Pablo Escobar', 'assets/image3.jpg'),
+            buildListTile(context, 'Gregorio Campa', 'assets/image4.jpg'),
+            buildListTile(context, 'Vanya Matus Gamboa', 'assets/image5.jpg'),
+            buildListTile(context, 'Julion Alvarez', 'assets/image6.jpg'),
+            buildListTile(context, 'Alfredo Olivas', 'assets/image7.jpg'),
+          ],
+        ),
+      ),
+    );
+  }
+
+  ListTile buildListTile(BuildContext context, String title, String imagePath) {
+    return ListTile(
+      leading: CircleAvatar(
+        backgroundImage: AssetImage(imagePath),
+      ),
+      title: Text(title),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ImageScreen(imagePath: imagePath)),
+        );
+      },
+    );
+  }
+}
+
+class ImageScreen extends StatelessWidget {
+  final String imagePath;
+
+  const ImageScreen({Key? key, required this.imagePath}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('CERESO128'),
       ),
       body: Center(
-        child: Text(
-          'Hello, World!',
-        ),
+        child: Image.asset(imagePath),
       ),
     );
   }
